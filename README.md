@@ -7,6 +7,7 @@ Este projeto é uma API REST desenvolvida com Spring Boot, implementando um CRUD
     JUnit – Framework para testes unitários.
     Mockito – Biblioteca para criação de mocks e simulação de dependências.
     H2 Database – Banco de dados em memória utilizado para testes de integração.
+    Model Mapper - Biblioteca Java de código aberto que oferece uma solução elegante e eficaz para o mapeamento de objetos
 
 🔍 Objetivo
 
@@ -27,4 +28,3 @@ Este projeto tem como propósito demonstrar boas práticas de testes automatizad
     Utilizam o banco de dados em memória H2.
     Validam o funcionamento das consultas e persistência de dados.
 
-📌 Este projeto é ideal para quem deseja aprender a escrever testes eficientes e confiáveis em aplicações Spring Boot!

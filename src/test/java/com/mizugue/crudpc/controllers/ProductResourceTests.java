@@ -23,8 +23,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,9 +58,27 @@ public class ProductResourceTests {
         Mockito.when(service.update(productDTO)).thenReturn(productDTO);
 
 
+        Mockito.when(service.delete(existingId)).thenReturn(productDTO);
+        Mockito.when(service.delete(nonExistingId)).thenThrow(new ResourceNotFoundException());
+
 
 
     }
+
+    @Test
+    public void deleteShouldReturnProductDTOWhenIdDoesExists() throws Exception {
+        ResultActions result = mockMvc.perform(delete("/products/{id}", existingId));
+        result.andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void deleteShouldReturnNotFoundWhenIdDoesNotExists() throws Exception{
+        ResultActions result = mockMvc.perform(delete("/products/{id}", nonExistingId));
+        result.andExpect(status().isNotFound());
+    }
+
+
 
     @Test
     public void findAllShouldReturnPage() throws Exception {
