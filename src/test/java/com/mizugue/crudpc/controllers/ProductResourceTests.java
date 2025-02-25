@@ -1,5 +1,6 @@
 package com.mizugue.crudpc.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mizugue.crudpc.dtos.ProductDTO;
 import com.mizugue.crudpc.exceptions.exception.ResourceNotFoundException;
@@ -62,8 +63,20 @@ public class ProductResourceTests {
         Mockito.when(service.delete(nonExistingId)).thenThrow(new ResourceNotFoundException());
 
 
+        Mockito.when(service.save(productDTO)).thenReturn(productDTO);
 
     }
+
+    @Test
+    public void insertShouldReturnCreated() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(productDTO);
+        ResultActions result = mockMvc.perform(post("/products").content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+        result.andExpect(status().isCreated());
+
+    }
+
+
 
     @Test
     public void deleteShouldReturnProductDTOWhenIdDoesExists() throws Exception {

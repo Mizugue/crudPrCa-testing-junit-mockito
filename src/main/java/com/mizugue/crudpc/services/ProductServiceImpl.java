@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
         try {
-            Product product = productRepository.getReferenceById(id); // Apenas pega a referência
+            Product product = productRepository.getReferenceById(id);
             productRepository.deleteById(id);
             return modelMapper.map(product, ProductDTO.class);
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
